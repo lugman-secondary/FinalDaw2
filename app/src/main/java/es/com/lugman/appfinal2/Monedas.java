@@ -1,5 +1,7 @@
 package es.com.lugman.appfinal2;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Lugman on 02/02/2018.
  */
@@ -19,7 +21,7 @@ public class Monedas {
     String percent_change_24h;
     String percent_change_7d;
     String last_updated;
-    String image;
+    Bitmap image;
 
     public String getId() {
         return id;
@@ -133,11 +135,11 @@ public class Monedas {
         this.last_updated = last_updated;
     }
 
-    public String getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 

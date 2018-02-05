@@ -62,23 +62,10 @@ public class Adaptador extends BaseAdapter {
         }else {
             viewH = (ViewHolder) convertView.getTag();
         }
-        URL imageUrl = null;
-        HttpURLConnection conn = null;
+        viewH.imagen.setImageBitmap(list.get(position).getImage());
+        viewH.imagen.setScaleX((float) 1.2);
+        viewH.imagen.setScaleY((float) 1.2);
 
-        try {
-
-            imageUrl = new URL("https://img.europapress.es/fotoweb/fotonoticia_20171203143150_640.jpg");
-            conn = (HttpURLConnection) imageUrl.getContent();
-            conn.connect();
-//            Bitmap imagen = BitmapFactory.decodeStream(conn.getInputStream());
-//                   viewH.imagen.setImageBitmap(imagen);
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
-//        viewH.imagen.setImageDrawable(d);
         viewH.Nombre.setText(list.get(position).getName()+"("+list.get(position).getSymbol()+")");
         viewH.Valor.setText(list.get(position).getPrice_usd());
         viewH.Volumen.setText(list.get(position).getPercent_change_24h());
@@ -92,4 +79,5 @@ public class Adaptador extends BaseAdapter {
         TextView Valor;
         TextView Volumen;
     }
+
 }

@@ -1,9 +1,12 @@
 package es.com.lugman.appfinal2;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -12,12 +15,10 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 ListView list;
     ArrayList<Monedas> listaMonedas;
     Adaptador adp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ ListView list;
         TraerLista traer =  new TraerLista();
         traer.execute();
         list =  findViewById(R.id.listView);
+
 
 
 
@@ -51,7 +54,6 @@ ListView list;
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
 
             Runnable  runa = new Runnable() {
                 @Override
@@ -78,7 +80,7 @@ ListView list;
                     JSONArray arrJson = new JSONArray(line);
                     listaMonedas = new ArrayList<Monedas>();
 
-                        for (int i=0;i <1;i++){
+                        for (int i=0;i <arrJson.length();i++){
                             Monedas moneda = new Monedas();
                             JSONObject obj = (JSONObject) arrJson.get(i);
                             Log.d("String ",obj.getString("rank"));
@@ -90,14 +92,16 @@ ListView list;
                             moneda.setPrice_btc(obj.getString("price_usd"));
                             moneda.setPrice_usd(obj.getString("price_btc"));
                             moneda.setVolume_usd_24(obj.getString("volume_usd_24"));
-                            moneda.setImage(obj.getString("image"));
+                            moneda.setImage(descargarImagen(obj.getString("image")));
+                            Log.d("Imagen",obj.getString("volume_usd_24"));
 
                             listaMonedas.add(moneda);
                         }
 
 
-                }
 
+
+                }
 
 
             } catch (IOException e) {
@@ -108,10 +112,26 @@ ListView list;
                 urlConnection.disconnect();
 
             }
+
             return null;
         }
 
 
     }
+    private Bitmap descargarImagen (String imageHttpAddress){
+        URL imageUrl = null;
+        Bitmap imagen = null;
+        try{
+            imageUrl = new URL(imageHttpAddress);
+            HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+            conn.connect();
+            imagen = BitmapFactory.decodeStream(conn.getInputStream());
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+        return imagen;
+    }
+
 
 }
