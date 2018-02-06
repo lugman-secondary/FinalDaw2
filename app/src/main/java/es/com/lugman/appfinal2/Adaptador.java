@@ -63,8 +63,7 @@ public class Adaptador extends BaseAdapter {
             viewH = (ViewHolder) convertView.getTag();
         }
         viewH.imagen.setImageBitmap(list.get(position).getImage());
-        viewH.imagen.setScaleX((float) 1.2);
-        viewH.imagen.setScaleY((float) 1.2);
+
 
         viewH.Nombre.setText(list.get(position).getName()+"("+list.get(position).getSymbol()+")");
         viewH.Valor.setText(list.get(position).getPrice_usd());

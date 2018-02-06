@@ -1,13 +1,17 @@
 package es.com.lugman.appfinal2;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 ListView list;
     ArrayList<Monedas> listaMonedas;
     Adaptador adp;
+    ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,9 @@ ListView list;
         TraerLista traer =  new TraerLista();
         traer.execute();
         list =  findViewById(R.id.listView);
+        progress =  findViewById(R.id.progressBar);
+        progress.incrementProgressBy(10);
+
 
 
 
@@ -44,6 +52,7 @@ ListView list;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
         }
 
         @Override
@@ -54,6 +63,8 @@ ListView list;
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            progress.setVisibility(View.GONE);
+            list.setVisibility(View.VISIBLE);
 
             Runnable  runa = new Runnable() {
                 @Override
@@ -115,6 +126,7 @@ ListView list;
 
             return null;
         }
+
 
 
     }
