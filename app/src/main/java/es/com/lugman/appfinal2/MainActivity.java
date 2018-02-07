@@ -2,6 +2,7 @@ package es.com.lugman.appfinal2;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 ListView list;
     ArrayList<Monedas> listaMonedas;
+    TextView micuenta;
     Adaptador adp;
     ProgressBar progress;
 
@@ -41,6 +44,14 @@ ListView list;
         list =  findViewById(R.id.listView);
         progress =  findViewById(R.id.progressBar);
         progress.incrementProgressBy(10);
+        micuenta = findViewById(R.id.textView5);
+        micuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Mycuenta.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -74,7 +85,7 @@ ListView list;
             };
             Thread  thead = new Thread(runa);
             thead.run();
-              list.setAdapter(adp);
+//              list.setAdapter(adp);
         }
 
         @Override
