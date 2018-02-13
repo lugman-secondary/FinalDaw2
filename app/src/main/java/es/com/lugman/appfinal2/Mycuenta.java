@@ -33,10 +33,11 @@ public class Mycuenta extends AppCompatActivity {
         Cont = findViewById(R.id.contra);
 
     }
-    private class loggin extends AsyncTask<>{
+    private class loggin extends AsyncTask<Void,Void,Void>{
+
 
         @Override
-        protected Object doInBackground(Object[] objects) {
+        protected Void doInBackground(Void... voids) {
             try {
                 login = new URL("lugman.com.es/app/loggin.php");
                 URLConnection connection =  new URLConnection(login) {
