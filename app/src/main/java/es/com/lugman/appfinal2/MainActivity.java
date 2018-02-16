@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -54,6 +56,8 @@ ListView list;
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+
 
 
 
@@ -203,6 +207,17 @@ ListView list;
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Alternativa 1
+        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem item = menu.findItem(R.id.logout);
+        item.setVisible(false);
+
+        return true;
+    }
+
     private Bitmap descargarImagen (String imageHttpAddress){
         URL imageUrl = null;
         Bitmap imagen = null;
