@@ -34,6 +34,7 @@ ListView list;
     TextView micuenta;
     Adaptador adp;
     ProgressBar progress;
+    global globObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ ListView list;
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,Mycuenta.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -77,15 +79,18 @@ ListView list;
             progress.setVisibility(View.GONE);
             list.setVisibility(View.VISIBLE);
 
-            Runnable  runa = new Runnable() {
-                @Override
-                public void run() {
-                    adp = new Adaptador(listaMonedas,MainActivity.this);
-                }
-            };
-            Thread  thead = new Thread(runa);
-            thead.run();
-//              list.setAdapter(adp);
+//            Runnable  runa = new Runnable() {
+//                @Override
+//                public void run() {
+//                    adp = new Adaptador(listaMonedas,MainActivity.this);
+//                }
+//            };
+//            Thread  thead = new Thread(runa);
+//            thead.run();
+
+            TraerGlobal tr =  new TraerGlobal();
+            tr.execute();
+
         }
 
         @Override
@@ -93,7 +98,7 @@ ListView list;
             URL url = null;
             HttpURLConnection urlConnection = null;
             try {
-                url = new URL("http://lugman.com.es/dawanair/app/monenda_simple.php");
+                url = new URL("http://lugman.com.es/appAndroid/monedas.php");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader reader =  new BufferedReader(new InputStreamReader(in));
@@ -111,20 +116,16 @@ ListView list;
                             moneda.setName(obj.getString("name"));
                             moneda.setSymbol(obj.getString("symbol"));
                             moneda.setRank(obj.getString("rank"));
-                            moneda.setPrice_btc(obj.getString("price_usd"));
-                            moneda.setPrice_usd(obj.getString("price_btc"));
+//                            moneda.setPrice_btc(obj.getString(""));
+                            moneda.setPrice_usd(obj.getString("price_usd"));
+                            moneda.setMarket_cap_usd(obj.getString("market_cap_usd"));
                             moneda.setVolume_usd_24(obj.getString("volume_usd_24"));
                             moneda.setImage(descargarImagen(obj.getString("image")));
                             Log.d("Imagen",obj.getString("volume_usd_24"));
 
                             listaMonedas.add(moneda);
                         }
-
-
-
-
                 }
-
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -133,6 +134,67 @@ ListView list;
             } finally {
                 urlConnection.disconnect();
 
+            }
+
+            return null;
+        }
+
+
+
+    }
+    private class  TraerGlobal extends AsyncTask<String,String,Void>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progress.setVisibility(View.GONE);
+            list.setVisibility(View.VISIBLE);
+
+            Runnable  runa = new Runnable() {
+                @Override
+                public void run() {
+                    adp = new Adaptador(listaMonedas,MainActivity.this,globObj);
+                }
+            };
+            Thread  thead = new Thread(runa);
+            thead.run();
+            list.setAdapter(adp);
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL("http://lugman.com.es/appAndroid/global.php");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader =  new BufferedReader(new InputStreamReader(in));
+                String line,lin = "";
+                while (((line = reader.readLine()) != null)){
+                    lin+=line;
+                }
+                JSONObject obj = new JSONObject(lin);
+                globObj = new global();
+                globObj.setTotal_24h_volume_usd(obj.getString("total_24h_volume_usd"));
+                Log.d("OBJ",globObj.getTotal_24h_volume_usd());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
             }
 
             return null;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,12 @@ import java.util.ArrayList;
 public class Adaptador extends BaseAdapter {
     ArrayList<Monedas>list;
     Context context;
+    global obj;
 
-    public Adaptador(ArrayList<Monedas> list, Context context) {
+    public Adaptador(ArrayList<Monedas> list, Context context, global obj) {
         this.list = list;
         this.context = context;
+        this.obj = obj;
     }
 
     @Override
@@ -61,14 +64,19 @@ public class Adaptador extends BaseAdapter {
 
         }else {
             viewH = (ViewHolder) convertView.getTag();
+
+
         }
         viewH.imagen.setImageBitmap(list.get(position).getImage());
 
-
         viewH.Nombre.setText(list.get(position).getName()+"("+list.get(position).getSymbol()+")");
-        viewH.Valor.setText(list.get(position).getPrice_usd());
-        viewH.Volumen.setText(list.get(position).getPercent_change_24h());
+        viewH.Valor.setText(list.get(position).getPrice_usd()+"$");
+        double valorGeneral = Double.parseDouble(list.get(position).getVolume_usd_24());
+        double valmon = Double.parseDouble(obj.getTotal_24h_volume_usd());
 
+        double totalVolumen =
+        Log.d("GLOBAL",obj.getTotal_24h_volume_usd());
+        viewH.Volumen.setText(list.get(position).getVolume_usd_24().substring(5));
 
         return convertView;
     }

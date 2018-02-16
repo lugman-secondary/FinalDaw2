@@ -1,9 +1,11 @@
 package es.com.lugman.appfinal2;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ import java.net.URLConnection;
 public class Mycuenta extends AppCompatActivity {
     EditText Us,Cont;
     URL login;
+    TextView tv4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,17 @@ public class Mycuenta extends AppCompatActivity {
         setContentView(R.layout.activity_mycuenta);
         Us = findViewById(R.id.usu);
         Cont = findViewById(R.id.contra);
+        tv4= findViewById(R.id.textView4);
+
+        tv4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent  intent = new Intent(Mycuenta.this,MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+            }
+        });
 
     }
     private class loggin extends AsyncTask<Void,Void,Void>{
