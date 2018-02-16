@@ -21,6 +21,16 @@ public class Monedas {
     String percent_change_24h;
     String percent_change_7d;
     String last_updated;
+
+    public String getMax_suply() {
+        return max_suply;
+    }
+
+    public void setMax_suply(String max_suply) {
+        this.max_suply = max_suply;
+    }
+
+    String max_suply;
     Bitmap image;
 
     public String getId() {

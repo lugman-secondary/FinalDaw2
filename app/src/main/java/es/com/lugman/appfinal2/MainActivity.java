@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,9 +59,16 @@ ListView list;
             }
         });
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-
+//                Toast.makeText(MainActivity.this,,Toast.LENGTH_LONG).show();
+                Intent intt = new Intent(MainActivity.this,MonedaDescripcion.class);
+                intt.putExtra("ID",listaMonedas.get(i).getId());
+                startActivity(intt);
+            }
+        });
 
 
 
@@ -111,7 +120,7 @@ ListView list;
                     JSONArray arrJson = new JSONArray(line);
                     listaMonedas = new ArrayList<Monedas>();
 
-                        for (int i=0;i <arrJson.length();i++){
+                        for (int i=0;i <5;i++){
                             Monedas moneda = new Monedas();
                             JSONObject obj = (JSONObject) arrJson.get(i);
                             Log.d("String ",obj.getString("rank"));
