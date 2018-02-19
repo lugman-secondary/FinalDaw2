@@ -22,7 +22,9 @@
         <activity
             android:name=".MonedaDescripcion"
             android:label="@string/title_activity_moneda_descripcion"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Registrar" />
+        <activity android:name=".Mismonedas"></activity>
     </application>
 
 </manifest>

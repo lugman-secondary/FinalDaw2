@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="#464646"
+    android:background="@color/FondoApp"
 
     tools:context="es.com.lugman.appfinal2.MainActivity"
     android:weightSum="1">
@@ -19,10 +19,12 @@
             android:id="@+id/textView4"
             android:layout_width="197dp"
             android:layout_height="match_parent"
-            android:background="#464646"
-            android:fontFamily="sans-serif"
+            android:background="@drawable/borde_menu"
+
             android:gravity="center"
+
             android:text="PRECIOS"
+
             android:textColor="@color/colorPrimary"
             android:textAlignment="center"
             android:textSize="18sp"
@@ -33,9 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#d2d2d2"
+            android:background="#e7e7e7"
             android:gravity="center"
-            android:text="MI CUENTA"
+            android:text="MIS MONEDAS"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
             android:textColor="@color/colorPrimary" />
 
@@ -47,12 +49,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView9"
-            android:layout_width="5dp"
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.35"
-            android:text="Coin"
+            android:layout_weight="0.40"
+            android:text="Nº"
             android:textAlignment="center"
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="Nombre"
+            android:textAlignment="textStart"
             android:textColor="@android:color/background_light" />
 
         <TextView

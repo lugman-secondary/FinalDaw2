@@ -3,6 +3,7 @@ package es.com.lugman.appfinal2;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class Adaptador extends BaseAdapter {
         this.obj = obj;
     }
 
+
+
     @Override
     public int getCount() {
         return list.size();
@@ -60,6 +63,8 @@ public class Adaptador extends BaseAdapter {
             viewH.Nombre = convertView.findViewById(R.id.textView);
             viewH.Valor = convertView.findViewById(R.id.textView2);
             viewH.Volumen = convertView.findViewById(R.id.textView3);
+            viewH.num = convertView.findViewById(R.id.textView17);
+//            viewH.rank = convertView.findViewById(R.id.textView19);
             convertView.setTag(viewH);
 
         }else {
@@ -71,12 +76,18 @@ public class Adaptador extends BaseAdapter {
 
         viewH.Nombre.setText(list.get(position).getName()+"("+list.get(position).getSymbol()+")");
         viewH.Valor.setText(list.get(position).getPrice_usd()+"$");
-        double valorGeneral = Double.parseDouble(list.get(position).getVolume_usd_24());
-        double valmon = Double.parseDouble(obj.getTotal_24h_volume_usd());
+        viewH.num.setText(list.get(position).getRank());
+        double por = Double.parseDouble(list.get(position).getPercent_change_24h());
+        if (por==0){
+            viewH.Volumen.setTextColor(Color.BLUE);
+        }else if (por>0){
+            viewH.Volumen.setTextColor(Color.GREEN);
+        }else {
+            viewH.Volumen.setTextColor(Color.RED);
+        }
+        viewH.Volumen.setText(list.get(position).getPercent_change_24h()+"%");
+//        viewH.rank.setText(list.get(position).getRank());
 
-        double totalVolumen =
-        Log.d("GLOBAL",obj.getTotal_24h_volume_usd());
-        viewH.Volumen.setText(list.get(position).getVolume_usd_24().substring(5));
 
         return convertView;
     }
@@ -85,6 +96,8 @@ public class Adaptador extends BaseAdapter {
         TextView Nombre;
         TextView Valor;
         TextView Volumen;
+        TextView num;
+        TextView rank;
     }
 
 }

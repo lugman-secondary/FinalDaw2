@@ -2,7 +2,9 @@ package es.com.lugman.appfinal2;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -39,6 +41,8 @@ ListView list;
     Adaptador adp;
     ProgressBar progress;
     global globObj;
+    ArrayList<String> nombreMonedas;
+    private static String PREFS_KEY = "mispreferencias";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +54,11 @@ ListView list;
         progress =  findViewById(R.id.progressBar);
         progress.incrementProgressBy(10);
         micuenta = findViewById(R.id.textView5);
+        nombreMonedas = new ArrayList<String>();
         micuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Mycuenta.class);
+                Intent intent = new Intent(MainActivity.this,Mismonedas.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -66,6 +71,7 @@ ListView list;
 //                Toast.makeText(MainActivity.this,,Toast.LENGTH_LONG).show();
                 Intent intt = new Intent(MainActivity.this,MonedaDescripcion.class);
                 intt.putExtra("ID",listaMonedas.get(i).getId());
+                intt.putExtra("list",nombreMonedas);
                 startActivity(intt);
             }
         });
@@ -133,9 +139,13 @@ ListView list;
                             moneda.setPrice_usd(obj.getString("price_usd"));
                             moneda.setMarket_cap_usd(obj.getString("market_cap_usd"));
                             moneda.setVolume_usd_24(obj.getString("volume_usd_24"));
+
+                            moneda.setPercent_change_24h(obj.getString("percent_change_24h"));
                             moneda.setImage(descargarImagen(obj.getString("image")));
+
                             Log.d("Imagen",obj.getString("volume_usd_24"));
 
+                            nombreMonedas.add(obj.getString("id"));
                             listaMonedas.add(moneda);
                         }
                 }
@@ -221,10 +231,37 @@ ListView list;
     public boolean onCreateOptionsMenu(Menu menu) {
         //Alternativa 1
         getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem item = menu.findItem(R.id.logout);
-        item.setVisible(false);
+        if (leerValor(MainActivity.this,"login").equals("si")){
+            MenuItem item = menu.findItem(R.id.login);
+            item.setVisible(false);
+
+        }else {
+            MenuItem item = menu.findItem(R.id.logout);
+            item.setVisible(false);
+        }
 
         return true;
+    }
+    public static String leerValor(Context context, String keyPref) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
+        return  preferences.getString(keyPref, "");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.login:
+                Intent intent = new Intent(MainActivity.this,Mycuenta.class);
+                startActivity(intent);
+                break;
+            case R.id.logout:
+                logout  logou = new logout(MainActivity.this);
+                logou.cerrar();
+
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private Bitmap descargarImagen (String imageHttpAddress){
