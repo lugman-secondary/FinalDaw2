@@ -24,7 +24,8 @@
             android:label="@string/title_activity_moneda_descripcion"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Registrar" />
-        <activity android:name=".Mismonedas"></activity>
+        <activity android:name=".Mismonedas" />
+        <activity android:name=".Historial"></activity>
     </application>
 
 </manifest>

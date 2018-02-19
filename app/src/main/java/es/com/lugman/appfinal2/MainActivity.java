@@ -126,7 +126,7 @@ ListView list;
                     JSONArray arrJson = new JSONArray(line);
                     listaMonedas = new ArrayList<Monedas>();
 
-                        for (int i=0;i <5;i++){
+                        for (int i=0;i <arrJson.length();i++){
                             Monedas moneda = new Monedas();
                             JSONObject obj = (JSONObject) arrJson.get(i);
                             Log.d("String ",obj.getString("rank"));
@@ -257,7 +257,12 @@ ListView list;
             case R.id.logout:
                 logout  logou = new logout(MainActivity.this);
                 logou.cerrar();
-
+                finish();
+                startActivity(getIntent());
+                break;
+            case R.id.Historial:
+                Intent intent2 = new Intent(MainActivity.this,Historial.class);
+                startActivity(intent2);
                 break;
 
         }

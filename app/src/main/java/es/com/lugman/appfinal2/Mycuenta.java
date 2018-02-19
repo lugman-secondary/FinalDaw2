@@ -37,8 +37,9 @@ public class Mycuenta extends AppCompatActivity {
     TextView tv4,error;
     Button  entrar;
     loggin log ;
+
     String lineas=null,Usuario,Nombre,Apellidos,Email,id;
-    boolean encontrado;
+    boolean encontrado,sePuede;
     JSONObject usuario;
     private static String PREFS_KEY = "mispreferencias";
 
@@ -50,10 +51,11 @@ public class Mycuenta extends AppCompatActivity {
         setContentView(R.layout.activity_mycuenta);
         Us = findViewById(R.id.usu);
         Cont = findViewById(R.id.contra);
-
+        error = findViewById(R.id.textView18);
         Button reg = findViewById(R.id.button2);
         entrar =  findViewById(R.id.button);
         encontrado= false;
+        sePuede= true;
         if (leerValor(this,"login").equals("si")){
             Intent intent = new Intent(Mycuenta.this,Mismonedas.class);
             startActivity(intent);
@@ -64,7 +66,8 @@ public class Mycuenta extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 log = new loggin(Us.getText().toString(),Cont.getText().toString());
-                log.execute();
+
+                    log.execute();
 
             }
         });
@@ -85,6 +88,7 @@ public class Mycuenta extends AppCompatActivity {
         public loggin(String usu, String cont) {
             this.usu = usu;
             this.cont = cont;
+//            sePuede=false;
         }
 
         @Override
@@ -103,14 +107,17 @@ public class Mycuenta extends AppCompatActivity {
             }else {
                 error.setVisibility(View.VISIBLE);
             }
+
+//            sePuede=true;
             super.onPostExecute(aVoid);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
+            HttpURLConnection connection = null;
             try {
                 login = new URL("http://lugman.com.es/appAndroid/login.php");
-                URLConnection connection = (HttpURLConnection) login.openConnection();
+                 connection = (HttpURLConnection) login.openConnection();
 
 
                 connection.setDoOutput(true);
@@ -124,7 +131,7 @@ public class Mycuenta extends AppCompatActivity {
 
                 InputStream puerta = new BufferedInputStream(connection.getInputStream());
                 BufferedReader leer =  new BufferedReader(new InputStreamReader(puerta));
-                String linea=null;
+                String linea=null,lineas=null;
 
                 while (((linea = leer.readLine()) != null)){
                     Log.d("LINEA",linea);
@@ -157,6 +164,7 @@ public class Mycuenta extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
+                connection.disconnect();
 
             }
 

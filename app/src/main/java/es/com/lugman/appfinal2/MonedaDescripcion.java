@@ -136,7 +136,8 @@ public class MonedaDescripcion extends AppCompatActivity {
             HttpURLConnection urlConnection = null;
             String linea="";
             try {
-                url = new URL("https://min-api.cryptocompare.com/data/histoday?fsym="+moneda.getSymbol()+"&tsym=USD&aggregate=3&e=CCCAGG");
+//                url = new URL("https://min-api.cryptocompare.com/data/histoday?fsym="+moneda.getSymbol()+"&tsym=USD&aggregate=3&e=CCCAGG");
+                url = new URL("https://min-api.cryptocompare.com/data/histoday?fsym="+moneda.getSymbol()+"&tsym=USD&allData=getAll&aggregate=3&e=CCCAGG&limit=300");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader reader =  new BufferedReader(new InputStreamReader(in));
@@ -206,16 +207,11 @@ public class MonedaDescripcion extends AppCompatActivity {
                 int fech = Integer.parseInt((String) listGraf.get(i).get(0));
 
                 String valS = String.valueOf(listGraf.get(i).get(1));
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(fech);
 
-                Time tiempo = new Time(fech);
-
-                int hour = tiempo.getHours();
 
                 double  val = Double.parseDouble(valS);
-                Log.d("tiempo",String.valueOf(hour));
-                points[i] = new DataPoint(Double.parseDouble(String.valueOf(hour)),val);
+
+                points[i] = new DataPoint(Double.parseDouble(String.valueOf(fech)),val);
             }
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
             graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.TRANSPARENT);

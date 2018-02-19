@@ -11,8 +11,28 @@ public class miMoneda {
     String name;
     String cant;
     String precio;
+    String precioC;
+
+    public String getPrecioC() {
+        return precioC;
+    }
+
+    public void setPrecioC(String precioC) {
+        this.precioC = precioC;
+    }
+
+    public String getPrecioV() {
+        return precioV;
+    }
+
+    public void setPrecioV(String precioV) {
+        this.precioV = precioV;
+    }
+
+    String precioV;
     String beneficio;
     Bitmap imagen;
+
 
     public Bitmap getImagen() {
         return imagen;

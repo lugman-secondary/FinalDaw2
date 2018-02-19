@@ -189,6 +189,15 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:text="Hoy"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -204,6 +213,7 @@
             android:rotation="270"
             android:text="Valor"
             android:textAlignment="center"
+            android:textColor="@android:color/background_light"
             android:textSize="14sp" />
 
         <com.jjoe64.graphview.GraphView
@@ -214,14 +224,6 @@
             app:seriesColor="#ee0000"
             android:layout_weight="0.05" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:text="Hora "
-        android:textAlignment="center" />
 
     <Button
         android:id="@+id/button5"

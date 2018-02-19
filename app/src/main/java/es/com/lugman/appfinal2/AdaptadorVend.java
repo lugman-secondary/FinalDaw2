@@ -1,9 +1,7 @@
 package es.com.lugman.appfinal2;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +15,12 @@ import java.util.ArrayList;
  * Created by Lugman on 02/02/2018.
  */
 
-public class AdaptadorMis extends BaseAdapter {
+public class AdaptadorVend extends BaseAdapter {
     ArrayList<miMoneda>list;
     Context context;
     global obj;
 
-    public AdaptadorMis(ArrayList<miMoneda> list, Context context) {
+    public AdaptadorVend(ArrayList<miMoneda> list, Context context) {
         this.list = list;
         this.context = context;
 
@@ -50,11 +48,12 @@ public class AdaptadorMis extends BaseAdapter {
         if (convertView == null){
             viewH = new ViewHolder();
             LayoutInflater inf = LayoutInflater.from(context);
-            convertView = inf.inflate(R.layout.item2,null);
+            convertView = inf.inflate(R.layout.item3,null);
             viewH.imagen = convertView.findViewById(R.id.imageView);
             viewH.name = convertView.findViewById(R.id.Nombre);
             viewH.cant = convertView.findViewById(R.id.cantidad);
-            viewH.precio = convertView.findViewById(R.id.precio);
+            viewH.precioC = convertView.findViewById(R.id.precioC);
+            viewH.precioV = convertView.findViewById(R.id.precioV);
             viewH.beneficio = convertView.findViewById(R.id.beneficio);
 //            viewH.rank = convertView.findViewById(R.id.textView19);
             convertView.setTag(viewH);
@@ -65,7 +64,8 @@ public class AdaptadorMis extends BaseAdapter {
         viewH.imagen.setImageBitmap(list.get(position).getImagen());
 
         viewH.name.setText(list.get(position).getName());
-        viewH.precio.setText(list.get(position).getPrecio());
+        viewH.precioC.setText(list.get(position).getPrecioC());
+        viewH.precioV.setText(list.get(position).getPrecioV());
         viewH.cant.setText(list.get(position).getCant());
         viewH.beneficio.setText(list.get(position).getBeneficio());
         double por = Double.parseDouble(list.get(position).getBeneficio());
@@ -85,7 +85,8 @@ public class AdaptadorMis extends BaseAdapter {
 
         TextView name;
         TextView cant;
-        TextView precio;
+        TextView precioC;
+        TextView precioV;
         TextView beneficio;
         ImageView imagen;
     }

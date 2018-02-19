@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/img1"
+    android:layout_width="match_parent"
+    android:layout_height="80px"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="0.01"
+        android:cropToPadding="false"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/Nombre"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/background_light"
+        android:textColorLink="@android:color/background_dark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/cantidad"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textColor="#ffffff"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/precioC"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textColor="?attr/colorPrimaryDark"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/precioV"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08"
+        android:paddingLeft="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textColor="?attr/colorButtonNormal"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/beneficio"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="3dp"
+        android:layout_weight="0.14"
+        android:paddingLeft="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/background_light"
+        android:textSize="10sp" />
+
+</LinearLayout>
